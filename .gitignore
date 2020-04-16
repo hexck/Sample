@@ -9,6 +9,18 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
+*/**/bin/Debug
+*/**/bin/Release
+*/**/obj/Debug
+*/**/obj/Release
+obj
+packages
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
