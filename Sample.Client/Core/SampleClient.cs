@@ -72,9 +72,9 @@ namespace Sample.Client.Core
         {
             if (!_authenticated)
                 throw new Exception("Not authenticated.");
-            Send($"2|{key.AESEncrypt(_aesKey)}");
-            var s = Receive().GetString().Split('|')[1];
-            return (LicenseState) Convert.ToInt32(s.AESDecrypt(s));
+
+            var data = SendAndReceive($"2|{key.AESEncrypt(_aesKey)}");
+            return (LicenseState) Convert.ToInt32(data[1].AESDecrypt(_aesKey));
         }
 
         // checks if key is connected with hwid
@@ -83,20 +83,8 @@ namespace Sample.Client.Core
             if (!_authenticated)
                 throw new Exception("Not authenticated.");
 
-            Send($"3|{key.AESEncrypt(_aesKey)}|{HardwareId.GetHwid().AESEncrypt(_aesKey)}");
-            var s = Receive().GetString().Split('|')[1];
-            return bool.Parse(s.AESDecrypt(_aesKey));
-        }
-
-        public bool Whitelisted()
-        {
-            if (!_authenticated)
-                throw new Exception("Not authenticated.");
-
-            var hwid = HardwareId.GetHwid();
-            Send($"5|{hwid.AESEncrypt(_aesKey)}");
-            var s = Receive().GetString().Split('|')[1];
-            return bool.Parse(s.AESDecrypt(_aesKey));
+            var data = SendAndReceive($"3|{key.AESEncrypt(_aesKey)}|{HardwareId.GetHwid().AESEncrypt(_aesKey)}");
+            return bool.Parse(data[1].AESDecrypt(_aesKey));
         }
 
         public RequestState Register(string key)
@@ -104,9 +92,17 @@ namespace Sample.Client.Core
             if (!_authenticated)
                 throw new Exception("Not authenticated.");
 
-            Send($"4|{key.AESEncrypt(_aesKey)}|{HardwareId.GetHwid().AESEncrypt(_aesKey)}");
-            var s = Receive().GetString().Split('|')[1];
-            return (RequestState) int.Parse(s.AESDecrypt(_aesKey));
+            var data = SendAndReceive($"4|{key.AESEncrypt(_aesKey)}|{HardwareId.GetHwid().AESEncrypt(_aesKey)}");
+            return (RequestState) int.Parse(data[1].AESDecrypt(_aesKey));
+        }
+
+        public bool Whitelisted()
+        {
+            if (!_authenticated)
+                throw new Exception("Not authenticated.");
+
+            var data = SendAndReceive($"5|{HardwareId.GetHwid().AESEncrypt(_aesKey)}");
+            return bool.Parse(data[1].AESDecrypt(_aesKey));
         }
 
 
@@ -150,6 +146,12 @@ namespace Sample.Client.Core
 
             // Begin sending the data to the remote device.  
             Sock.Send(byteData);
+        }
+
+        private string[] SendAndReceive(string data)
+        {
+            Send(data);
+            return Receive().GetString().Split('|');
         }
     }
 }
