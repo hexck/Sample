@@ -15,17 +15,10 @@ _ReSharper.*
 bin
 obj
 packages
-
-
-*.suo
-*.user
-_ReSharper.*
-Sample.Test/bin
-Sample.Test/obj
-Sample.Client/bin
-Sample.Client/obj
-Sample.Server/bin
-Sample.Server/obj
+*/**/bin/Debug
+*/**/bin/Release
+*/**/obj/Debug
+*/**/obj/Release
 obj
 packages
 
