@@ -46,7 +46,7 @@ namespace Sample.Client.Core
             return this;
         }
 
-        public bool Authenticate()
+        public bool EncryptConnection()
         {
             try
             {
@@ -81,7 +81,7 @@ namespace Sample.Client.Core
         public bool Valid(string key)
         {
             if (!_authenticated)
-                throw new Exception("Not authenticated.");
+                throw new Exception("Connection not encrypted");
 
             var data = SendAndReceive($"3|{key.AESEncrypt(_aesKey)}|{HardwareId.GetHwid().AESEncrypt(_aesKey)}");
             return bool.Parse(data[1].AESDecrypt(_aesKey));
@@ -90,7 +90,7 @@ namespace Sample.Client.Core
         public RequestState Register(string key)
         {
             if (!_authenticated)
-                throw new Exception("Not authenticated.");
+                throw new Exception("Connection not encrypted");
 
             var data = SendAndReceive($"4|{key.AESEncrypt(_aesKey)}|{HardwareId.GetHwid().AESEncrypt(_aesKey)}");
             return (RequestState) int.Parse(data[1].AESDecrypt(_aesKey));
@@ -99,7 +99,7 @@ namespace Sample.Client.Core
         public bool Whitelisted()
         {
             if (!_authenticated)
-                throw new Exception("Not authenticated.");
+                throw new Exception("Connection not encrypted");
 
             var data = SendAndReceive($"5|{HardwareId.GetHwid().AESEncrypt(_aesKey)}");
             return bool.Parse(data[1].AESDecrypt(_aesKey));

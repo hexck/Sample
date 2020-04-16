@@ -46,14 +46,12 @@ namespace Sample.Server.Core.Network
                 }
 
                 var sock = Listener.Accept();
-                new Thread(() => HandleClient(sock)).Start();
+                new Thread(() => HandleClient(new Client {Sock = sock})).Start();
             }
         }
 
-        private void HandleClient(Socket sock)
+        private void HandleClient(Client client)
         {
-            var client = new Client();
-            client.Sock = sock;
             if (Engine.Instance.LicenseManager.IsBanned(client.IpAddress))
             {
                 client.Sock.Close();
@@ -66,8 +64,8 @@ namespace Sample.Server.Core.Network
                 {
                     if (Pause)
                     {
-                        Thread.Sleep(2000);
-                        continue;
+                        client.Sock.Close();
+                        return;
                     }
 
                     Receive(client);
@@ -79,45 +77,44 @@ namespace Sample.Server.Core.Network
             }
         }
 
-        public void Receive(Client client)
+        private void Receive(Client client)
         {
             var bytesRead = client.Sock.Receive(client.Buffer, 0, Client.BufferSize, SocketFlags.None);
 
-            if (bytesRead > 0)
+            if (bytesRead <= 0) return;
+
+            byte last = 0;
+            for (var i = client.Buffer.Length - 1; i > 0; i--)
             {
-                byte last = 0;
-                for (var i = client.Buffer.Length - 1; i > 0; i--)
+                var b = client.Buffer[i];
+                if (b != 0x0 && b != 0xA)
                 {
-                    var b = client.Buffer[i];
-                    if (b != 0x0 && b != 0xA)
-                    {
-                        last = b;
-                        break;
-                    }
+                    last = b;
+                    break;
                 }
-
-                if (!client.Data.Contains('|')) // packets always contain an '|'
-                {
-                    Logger.Log($"{client.IpAddress} -> ip has been blocked for 30 days", LogType.Critical);
-                    new MongoCrud().Ban(client.IpAddress, 30);
-                    client.Sock.Close();
-                    return;
-                }
-
-                if (last == 0x05)
-                    try
-                    {
-                        var id = Convert.ToInt32(((char) client.Buffer[0]).ToString());
-                        Send(client, Engine.Instance.PacketManager.Execute(client, id));
-                    }
-                    catch
-                    {
-                        Logger.Log($"{client.IpAddress} -> something went wrong: closing socket.", LogType.Error);
-                        client.Sock.Close();
-                    }
-                else
-                    Receive(client);
             }
+
+            if (!client.Data.Contains('|')) // packets always contain an '|'
+            {
+                Logger.Log($"{client.IpAddress} -> banned for 30 days", LogType.Critical);
+                new MongoCrud().Ban(client.IpAddress, 30);
+                client.Sock.Close();
+                return;
+            }
+
+            if (last == 0x05)
+                try
+                {
+                    var id = Convert.ToInt32(((char) client.Buffer[0]).ToString());
+                    Send(client, Engine.Instance.PacketManager.Execute(client, id));
+                }
+                catch
+                {
+                    Logger.Log($"{client.IpAddress} -> something went wrong: closing socket.", LogType.Error);
+                    client.Sock.Close();
+                }
+            else
+                Receive(client);
         }
 
         private void Send(Client client, string data)

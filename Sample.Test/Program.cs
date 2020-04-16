@@ -8,7 +8,7 @@ namespace Sample.Test
         private static void Main(string[] args)
         {
             var sample = new SampleClient("127.0.0.1", 3202).Connect();
-            if (!sample.Authenticate())
+            if (!sample.EncryptConnection())
                 return;
 
             while (!sample.Whitelisted())
@@ -19,7 +19,7 @@ namespace Sample.Test
             }
 
             sample.Close();
-            Console.WriteLine("Gg! you are verified!");
+            Console.WriteLine("Gg! you have a license!");
 
             Console.ReadKey();
         }
