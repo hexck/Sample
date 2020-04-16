@@ -13,7 +13,6 @@ namespace Sample.Server.Core.Packet.Outbound.Impl
         {
             client.VerifyToken = Guid.NewGuid().GetHashCode().ToString(); // generate random secret 
             var s = Convert.ToBase64String( Encoding.UTF8.GetBytes( Engine.Instance.EncryptionManager.PublicKey ) );
-            // var s2 = Convert.ToBase64String(Encoding.UTF8.GetBytes(Engine.Instance.EncryptionManager._privateKey));
             
             return $"{Id.ToString()}|{s}|{client.VerifyToken}";
         }
