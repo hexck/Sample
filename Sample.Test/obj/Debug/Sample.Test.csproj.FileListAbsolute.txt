@@ -1,9 +1,0 @@
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Test\bin\Debug\Sample.Test.exe.config
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Test\bin\Debug\Sample.Test.exe
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Test\bin\Debug\Sample.Test.pdb
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Test\bin\Debug\Sample.Client.dll
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Test\bin\Debug\Sample.Client.pdb
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Test\obj\Debug\Sample.Test.csproj.CopyComplete
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Test\obj\Debug\Sample.Test.exe
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Test\obj\Debug\Sample.Test.pdb
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Test\obj\Debug\Sample.Test.csprojAssemblyReference.cache
