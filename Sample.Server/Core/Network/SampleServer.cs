@@ -1,28 +1,27 @@
-﻿using Sample.Server.Core.Logging;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using Sample.Server.Core.Database;
+using Sample.Server.Core.Logging;
 
 namespace Sample.Server.Core.Network
 {
     public class SampleServer
     {
-        public Socket Listener { get; }
-
-        public bool Cancel { get; set; }
-
-        public bool Pause { get; set; }
-
         public SampleServer()
         {
             Pause = false;
             Listener = new Socket(SocketType.Stream, ProtocolType.Tcp);
             Listener.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), Constants.Port));
         }
+
+        public Socket Listener { get; }
+
+        public bool Cancel { get; set; }
+
+        public bool Pause { get; set; }
 
         public void Start()
         {
@@ -45,6 +44,7 @@ namespace Sample.Server.Core.Network
                     Thread.Sleep(2000);
                     continue;
                 }
+
                 var sock = Listener.Accept();
                 new Thread(() => HandleClient(sock)).Start();
             }
@@ -69,10 +69,14 @@ namespace Sample.Server.Core.Network
                         Thread.Sleep(2000);
                         continue;
                     }
+
                     Receive(client);
                     client.Clear();
                 }
-            } catch {    }
+            }
+            catch
+            {
+            }
         }
 
         public void Receive(Client client)
@@ -101,11 +105,9 @@ namespace Sample.Server.Core.Network
                 }
 
                 if (last == 0x05)
-                {
                     try
                     {
-                        var id = Convert.ToInt32(((char)client.Buffer[0]).ToString());
-                        Console.WriteLine();
+                        var id = Convert.ToInt32(((char) client.Buffer[0]).ToString());
                         Send(client, Engine.Instance.PacketManager.Execute(client, id));
                     }
                     catch
@@ -113,13 +115,9 @@ namespace Sample.Server.Core.Network
                         Logger.Log($"{client.IpAddress} -> something went wrong: closing socket.", LogType.Error);
                         client.Sock.Close();
                     }
-                }
                 else
-                {
                     Receive(client);
-                }
             }
-
         }
 
         private void Send(Client client, string data)
