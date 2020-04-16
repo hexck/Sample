@@ -9,21 +9,18 @@ namespace Sample.Server.Core.Manager
 {
     public class EncryptionManager
     {
-        public RSACryptoServiceProvider RSA { get; private set; }
-        public string PublicKey { get; private set; }
-
-        public string _privateKey { get; set; }
+        public RSACryptoServiceProvider RSA { get; }
+        public string PublicKey { get; }
+        public string PrivateKey { get; }
        
 
-        // https://www.c-sharpcorner.com/forums/i-want-to-generate-rsa-key-pair-in-c-sharp-i-am-able-to-get-xml
         public EncryptionManager()
         {
             RSA = new RSACryptoServiceProvider();
             PublicKey = RSA.ToXmlString(false);
-            _privateKey = RSA.ToXmlString(true);
+            PrivateKey = RSA.ToXmlString(true);
         }
 
-        // https://stackoverflow.com/questions/34613479/rsacryptoserviceprovider-encrypt-and-decrypt-using-own-public-and-private-key
         public byte[] Encrypt(byte[] plaintext)
         {
             byte[] encryptedData;

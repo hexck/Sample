@@ -28,11 +28,7 @@ namespace Sample.Server.Core.Manager
 
         public string Execute(Client client, int id)
         {
-            Packet.Inbound.InboundPacket target = null;
-            foreach (var x in Inbound)
-                if (x.Id == id)
-                    target = x;
-
+            var target = Inbound.FirstOrDefault(i => i.Id == id);
             return target is null ? "" : target.Execute(client);
         }
     }
