@@ -18,7 +18,7 @@ Sample was built so that people can learn from it, for real-world use, anti-tamp
 
 - [x] All data is encrypted (RSA, AES)
 - [x] Uses sockets
-- [x] Easy to understand
+- [x] Easy to understand and implememt
 - [x] Command-line interface
 - [x] Bans & License expiration
 
