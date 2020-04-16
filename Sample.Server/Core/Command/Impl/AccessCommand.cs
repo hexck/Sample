@@ -17,7 +17,7 @@ namespace Sample.Server.Core.Command.Impl
             }
 
             Write(0, $"Set access: {args[1].ToLower()}");
-            Engine.Instance.Server.Pause = args[1].ToLower() == "deny";
+            Engine.Instance.SampleServer.Pause = args[1].ToLower() == "deny";
         }
     }
 }

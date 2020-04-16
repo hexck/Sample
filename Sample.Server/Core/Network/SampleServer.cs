@@ -9,15 +9,15 @@ using Sample.Server.Core.Database;
 
 namespace Sample.Server.Core.Network
 {
-    public class Server
+    public class SampleServer
     {
-        public Socket Listener { get; private set; }
+        public Socket Listener { get; }
 
         public bool Cancel { get; set; }
 
         public bool Pause { get; set; }
 
-        public Server()
+        public SampleServer()
         {
             Pause = false;
             Listener = new Socket(SocketType.Stream, ProtocolType.Tcp);

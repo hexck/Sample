@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Sample.Server.Core.Network;
 
 namespace Sample.Server.Core
 {
@@ -13,7 +14,7 @@ namespace Sample.Server.Core
     {
         public static Engine Instance;
 
-        public Network.Server Server { get; }
+        public SampleServer SampleServer { get; }
 
         public EncryptionManager EncryptionManager { get; }
 
@@ -27,8 +28,8 @@ namespace Sample.Server.Core
             EncryptionManager = new EncryptionManager();
             LicenseManager = new LicenseManager();
             PacketManager = new PacketManager();
-            Server = new Network.Server();
-            Server.Start();
+            SampleServer = new SampleServer();
+            SampleServer.Start();
         }
     }
 }
