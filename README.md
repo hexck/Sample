@@ -36,6 +36,7 @@ Sample was built so that people can learn from it, for real-world use, anti-tamp
         var res = sample.Register(Console.ReadLine());
         Console.WriteLine(res == RequestState.Success ? "Key was valid" : "Key was not valid");
     }
+    sample.Close();
             
     Console.WriteLine("Gg! you are verified!");
 ```
