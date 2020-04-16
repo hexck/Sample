@@ -4,7 +4,7 @@ Built with ❤︎ by <a href="https://twitter.com/hexkgg">Hexk</a>
 
 ## :smirk_cat: Why do you need Sample ? 
 
-Sample was built so that people can learn from it, for real-world use, anti-tampering techniques and obfuscation is required.
+Sample was built so that people can learn from it, for real-world use, anti-tampering techniques and obfuscation would probably be required.
 <br><br>
 
 ## :star: How does it work ?
