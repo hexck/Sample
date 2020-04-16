@@ -1,21 +1,19 @@
-﻿using Sample.Server.Core.Handler.Impl;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sample.Server.Core.Packet.Inbound.Impl;
+using Sample.Server.Core.Handler.Impl;
 using Sample.Server.Core.Network;
+using Sample.Server.Core.Packet.Inbound;
+using Sample.Server.Core.Packet.Inbound.Impl;
 
 namespace Sample.Server.Core.Manager
 {
     public class PacketManager
     {
-        public List<Packet.Inbound.InboundPacket> Inbound;
+        public List<InboundPacket> Inbound;
 
         public PacketManager()
         {
-            Inbound = new List<Packet.Inbound.InboundPacket>
+            Inbound = new List<InboundPacket>
             {
                 new I00Handshake(),
                 new I01EncryptionResponse(),
