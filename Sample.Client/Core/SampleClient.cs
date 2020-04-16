@@ -53,10 +53,10 @@ namespace Sample.Client.Core
                 Send("0");
                 var s0 = Receive().GetString();
                 var pubKey = Convert.FromBase64String(s0.Split('|')[1]).GetString();
-                _aesKey = Generator.RandomString(16);
                 var token = s0.Split('|')[2];
+                _aesKey = Generator.RandomString(16);
                 var encToken = EncryptionUtil.RSAEncrypt(token.GetBytes(), pubKey);
-                var encAeskey = EncryptionUtil.RSAEncrypt(Encoding.UTF8.GetBytes(_aesKey), pubKey);
+                var encAeskey = EncryptionUtil.RSAEncrypt(_aesKey.GetBytes(), pubKey);
                 Send($"1|{encToken}|{encAeskey}");
                 _authenticated = true;
                 return true;
