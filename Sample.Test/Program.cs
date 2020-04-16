@@ -1,15 +1,11 @@
-﻿using Sample.Client.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Sample.Client.Core;
 
 namespace Sample.Test
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var sample = new SampleClient("127.0.0.1", 3202).Connect();
             if (!sample.Authenticate())
@@ -21,7 +17,8 @@ namespace Sample.Test
                 var res = sample.Register(Console.ReadLine());
                 Console.WriteLine(res == RequestState.Success ? "Key was valid" : "Key was not valid");
             }
-            
+
+            sample.Close();
             Console.WriteLine("Gg! you are verified!");
 
             Console.ReadKey();

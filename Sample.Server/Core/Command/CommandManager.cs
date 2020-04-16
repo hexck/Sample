@@ -32,7 +32,9 @@ namespace Sample.Server.Core.Command
             while (true)
                 try
                 {
-                    var args = Console.ReadLine().Split(' ');
+                    var args = Console.ReadLine()?.Split(' ') ?? new string[] { };
+                    if (args.Length == 0)
+                        continue;
 
                     Commands.FirstOrDefault(cmd => cmd.Name == args[0].ToLower())?.Execute(args);
                     Console.WriteLine();
