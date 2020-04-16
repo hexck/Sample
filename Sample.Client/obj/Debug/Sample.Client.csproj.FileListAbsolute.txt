@@ -1,5 +1,0 @@
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Client\bin\Debug\Sample.Client.dll
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Client\bin\Debug\Sample.Client.pdb
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Client\obj\Debug\Sample.Client.dll
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Client\obj\Debug\Sample.Client.pdb
-C:\Users\Ivan\Source\Repos\Licensing.Server\Sample.Client\obj\Debug\Sample.Client.csprojAssemblyReference.cache
