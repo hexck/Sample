@@ -16,6 +16,19 @@ bin
 obj
 packages
 
+
+*.suo
+*.user
+_ReSharper.*
+Sample.Test/bin
+Sample.Test/obj
+Sample.Client/bin
+Sample.Client/obj
+Sample.Server/bin
+Sample.Server/obj
+obj
+packages
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
