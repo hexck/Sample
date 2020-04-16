@@ -1,15 +1,12 @@
-﻿using Sample.Server.Core.Command.Impl;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Sample.Server.Core.Command.Impl;
 
 namespace Sample.Server.Core.Command
 {
     public class CommandManager
     {
-        public List<Command> Commands { get; set; }
-
         public CommandManager()
         {
             Commands = new List<Command>
@@ -26,21 +23,23 @@ namespace Sample.Server.Core.Command
             };
         }
 
+        private List<Command> Commands { get; }
+
         public void Start()
         {
             Console.WriteLine("Sample Server");
             Console.WriteLine();
             while (true)
-            {
                 try
                 {
-                    string[] args = Console.ReadLine().Split(' ');
+                    var args = Console.ReadLine().Split(' ');
 
                     Commands.FirstOrDefault(cmd => cmd.Name == args[0].ToLower())?.Execute(args);
                     Console.WriteLine();
-
-                } catch {     }
-            }
+                }
+                catch
+                {
+                }
         }
     }
 }
