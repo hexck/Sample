@@ -1,27 +1,42 @@
-# Hex Virtualization [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+# Sample Licensing System [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 Built with ❤︎ by <a href="https://twitter.com/hexkgg">Hexk</a>
 <br><br>
 
-## :smirk_cat: Why do you need Hex.VM ? 
+## :smirk_cat: Why do you need Sample ? 
 
-Hex.VM was built so that people can learn from it, for real-world use, other obfuscation techniques such as mutations, controlflow, and renamer would bring this VM to its full potential.
+Sample was built so that people can learn from it, for real-world use, anti-tampering techniques and obfuscation would probably be required.
 <br><br>
 
 ## :star: How does it work ?
 
-- MSIL to VMIL
-- Methods are stored as resources
-- Bytes are encrypted with a simple xor cipher 
+- Client side (.NET Framework)
+- Server side (.NET Core)
+- MongoDB
 <br>
 
 ## :fire: What does it do ?
 
-- [x] Virtualizes methods into instructions, which only Hex.VM can understand
-- [x] Has support for a decent amount of opcodes, as said, this is made for educational purposes, and as such, I believe these opcodes are enough for people to build on
-- [x] Easy to use, understand, and build on
+- [x] All data is encrypted (RSA, AES)
+- [x] Uses sockets
+- [x] Easy to understand and implement
+- [x] Command-line interface
+- [x] Bans & License expiration
 
 <br>
 
 ## :bookmark_tabs: Examples
-<img src="https://i.ibb.co/CzV60Z9/dn-Spy-x86-2-MKplm-Wr-Jc.png" alt="Example">
+```c#
+    var sample = new SampleClient("127.0.0.1", 3202).Connect();
+    if (!sample.EncryptConnection())
+        return;
 
+    while (!sample.Whitelisted())
+    {
+        Console.Write("You are not whitelisted, please enter license key: ");
+        var res = sample.Register(Console.ReadLine());
+        Console.WriteLine(res == RequestState.Success ? "Key was valid" : "Key was not valid");
+    }
+    sample.Close();
+            
+    Console.WriteLine("Gg! you are verified!");
+```
