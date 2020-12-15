@@ -1,5 +1,5 @@
 # Sample Licensing System [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
-Built with ❤︎ by <a href="https://github.com/hexck">Hexk</a>
+Made by <a href="https://github.com/hexck">Hexk</a>
 <br><br>
 
 ## :smirk_cat: Why do you need Sample ? 
