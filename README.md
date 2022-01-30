@@ -17,7 +17,7 @@ Sample was built so that people can learn from it, for real-world use, anti-tamp
 ## :fire: What does it do ?
 
 - [x] All data is encrypted (RSA, AES)
-- [x] Uses sockets
+- [x] Built with sockets
 - [x] Easy to understand and implement
 - [x] Command-line interface
 - [x] Bans & License expiration
